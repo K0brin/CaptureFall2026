@@ -14,6 +14,9 @@ ACPlayerCharacter::ACPlayerCharacter()
 
 	ViewCam = CreateDefaultSubobject<UCameraComponent>("View Cam");
 	ViewCam->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
+
+	CameraBoom->bUsePawnControlRotation = true;
+	bUseControllerRotationYaw = false;
 }
 
 void ACPlayerCharacter::PawnClientRestart()
@@ -34,5 +37,19 @@ void ACPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
 	{
 		EnhancedInputComponent->BindAction(JumpInputAction, ETriggerEvent::Triggered, this, &ACPlayerCharacter::Jump);
+		EnhancedInputComponent->BindAction(LookInputAction, ETriggerEvent::Triggered, this, &ACPlayerCharacter::HandleLookInput);
+		EnhancedInputComponent->BindAction(MoveInputAction, ETriggerEvent::Triggered, this, &ACPlayerCharacter::HandleMoveInput);
 	}
+}
+
+void ACPlayerCharacter::HandleLookInput(const FInputActionValue& InputActionValue)
+{
+	FVector2D InputAction = InputActionValue.Get<FVector2D>();
+	AddControllerYawInput(InputAction.X);
+	AddControllerPitchInput(InputAction.Y);
+}
+
+void ACPlayerCharacter::HandleMoveInput(const FInputActionValue& InputActionValue)
+{
+
 }

@@ -18,6 +18,7 @@ public:
 	virtual void PawnClientRestart() override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+
 private:
 	UPROPERTY(VisibleDefaultsOnly, Category = "Camera")
 	class USpringArmComponent* CameraBoom;
@@ -25,9 +26,20 @@ private:
 	UPROPERTY(VisibleDefaultsOnly, Category = "Camera")
 	class UCameraComponent* ViewCam;
 
+	//---------------------Input-----------------------//
+private:
+	void HandleLookInput(const struct FInputActionValue& InputActionValue); //const - only read , can't alter
+	void HandleMoveInput(const struct FInputActionValue& InputActionValue);
+
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	class UInputMappingContext* GameplayMappingContext;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	class UInputAction* JumpInputAction;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	class UInputAction* LookInputAction;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	class UInputAction* MoveInputAction;
 };
