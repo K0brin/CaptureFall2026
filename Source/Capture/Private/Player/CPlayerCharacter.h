@@ -31,6 +31,10 @@ private:
 	void HandleLookInput(const struct FInputActionValue& InputActionValue); //const - only read , can't alter
 	void HandleMoveInput(const struct FInputActionValue& InputActionValue);
 
+	FVector GetRightDirection() const;
+	FVector GetLookFwdDirection() const;
+	FVector GetMoveFwdDirection() const;
+
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	class UInputMappingContext* GameplayMappingContext;
 
