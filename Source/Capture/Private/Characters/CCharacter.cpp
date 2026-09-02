@@ -12,7 +12,18 @@ ACCharacter::ACCharacter()
 	PrimaryActorTick.bCanEverTick = true;
 
 	AbilitySystemComponent = CreateDefaultSubobject<UCAbilitySystemComponent>("AbilitySystemComponent");
-	CAttributeSet - CreateDefaultSubobject<UCAttributeSet>("CAttributeSet");
+	CAttributeSet = CreateDefaultSubobject<UCAttributeSet>("CAttributeSet");
+}
+
+void ACCharacter::ServerSideInit()
+{
+	AbilitySystemComponent->InitAbilityActorInfo(this, this);
+	AbilitySystemComponent->ApplyInitialEffetcs();
+}
+
+void ACCharacter::ClientSideInit()
+{
+	AbilitySystemComponent->InitAbilityActorInfo(this, this);
 }
 
 // Called when the game starts or when spawned
